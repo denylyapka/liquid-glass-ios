@@ -1,0 +1,227 @@
+.ios-glass {
+  /* Базовые параметры */
+  position: relative;
+  border-radius: 24px;
+  padding: 2.5rem;
+  overflow: hidden;
+  isolation: isolate;
+  
+  /* Стеклянная текстура */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  
+  /* Физика стекла */
+  backdrop-filter: blur(0.5px) brightness(150%) saturate(120%);
+  -webkit-backdrop-filter: blur(0.5) brightness(150%) saturate(120%);
+  
+  /* Границы и глубина */
+  border: 3px double rgb(255, 255, 255);
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.3),
+    inset 0 0 30px rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.5),
+    /* Эффект внутреннего преломления */
+    inset 0 0 40px rgba(255, 255, 255, 0.1);
+  
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Новая 3D-анимация */
+  animation: 
+    float-3d 3s ease-in-out infinite;
+  
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+@keyframes float-3d {
+  0%, 100% { 
+    transform: 
+      translateY(0) 
+      rotateX(0deg) 
+      rotateY(0deg)
+      scale(1);
+  }
+  25% { 
+    transform: 
+      translateY(-20px) 
+      rotateX(5deg) 
+      rotateY(2deg)
+      scale(0.98);
+  }
+  50% { 
+    transform: 
+      translateY(10px) 
+      rotateX(-3deg) 
+      rotateY(-1deg)
+      scale(1.02);
+  }
+  75% { 
+    transform: 
+      translateY(-10px) 
+      rotateX(3deg) 
+      rotateY(-2deg)
+      scale(0.99);
+  }
+}
+
+@keyframes glass-resize {
+  0%, 100% { 
+    border-radius: 24px;
+    padding: 1rem 2rem;
+  }
+  25% { 
+    border-radius: 22px;
+    padding: 1.4rem 1.8rem;
+  }
+  50% { 
+    border-radius: 26px;
+    padding: 1rem 2rem;
+  }
+  75% { 
+    border-radius: 23px;
+    padding: 1.4rem 1.8rem;
+  }
+}
+
+/* Эффект "тяжести" при движении вниз */
+.ios-glass::after {
+  transition: all 0.5s ease;
+}
+
+@keyframes float-3d {
+  0%, 100% { 
+    transform: translateY(0);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  50% { 
+    transform: translateY(-25px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  }
+}
+
+
+/* Динамический блик */
+.ios-glass::before {
+  content: '';
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at var(--mouse-x, 30%) var(--mouse-y, 30%),
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.2) 70%
+  );
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: -1;
+}
+
+/* Эффект толщины */
+.ios-glass::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.01) 0%,
+    rgb(255, 255, 255, 0.1) 50%,
+    rgb(255, 255, 255, 0.01) 100%
+  );
+  z-index: -1;
+}
+
+/* Контент */
+.glass-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.glass-title {
+  color: white;
+  font-weight: 600;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.glass-text {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(0);
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+  .ios-glass {
+    background: linear-gradient(
+      135deg,
+      rgba(20, 20, 20, 0.4) 0%,
+      rgba(10, 10, 10, 0.3) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .ios-glass {
+    padding: 2rem;
+    border-radius: 20px;
+    backdrop-filter: blur(0.5px);
+
+    /* Физика стекла */
+    backdrop-filter: blur(0.5px) brightness(150%) saturate(130%);
+    -webkit-backdrop-filter: blur(0.5px) brightness(150%) saturate(130%);
+  }
+}
+
+.threejs-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.threejs-overlay button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+  padding: 10px 20px;
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

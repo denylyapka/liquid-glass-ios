@@ -1,38 +1,49 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-background {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  padding: 20px;
+  
+  /* Ваше изображение с оптимизацией */
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('https://storage.yandexcloud.net/mobiltelefon/june25/10/oboi_ios_26_i_macos_tahoe_uzhe_dostupny_vsem_zhelauschim_skachat_picture6_0.JPG') center/cover no-repeat fixed;
+  
+  /* Анимация мягкого дыхания */
+  animation: breath 15s ease-in-out infinite;
 }
 
-.App-link {
-  color: #61dafb;
+@keyframes breath {
+  0%, 100% { background-size: 100% auto; }
+  50% { background-size: 110% auto; }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Для лучшего отображения на мобильных */
+@media (max-width: 768px) {
+  .app-background {
+    background-attachment: scroll;
+    animation: none;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+/* Добавьте это для плавности */
+.app-background {
+  overflow: hidden;
+}
+
+/* Эффект "прилипания" к курсору */
+.ios-glass {
+  transition: 
+    transform 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67),
+    box-shadow 0.8s ease;
+}
+
+/* Динамическое 3D-преобразование */
+.ios-glass:hover {
+  animation-play-state: paused;
+  transform: 
+    translateY(calc(var(--mouse-y, 0) * -10px)) 
+    rotateX(var(--rotate-x))
+    rotateY(var(--rotate-y));
 }
